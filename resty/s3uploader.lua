@@ -1,5 +1,5 @@
 
-cal http = require "resty.http"
+local http = require "resty.http"
 local json = require "cjson"
  
 local resty_string       = require "resty.string" 
@@ -178,7 +178,6 @@ function _M:upload(content, content_type, object_name )
       
      local headers, err = self:build_auth_headers(content,self.ACL_PUBLIC_READ,content_type,self._bucket,object_name)
  
-    
      if not headers then return nil, err end
  
      local httpc = http.new()
@@ -237,9 +236,6 @@ function _M:upload(content, content_type, object_name )
         ngx.log(ngx.ERR,'s3_upload aws err',res.body)
         return nil,res.status..' code ,body='..res.body
     end
-    
-    
-       
     return  final_url,object_name
         
 end
